@@ -1,0 +1,24 @@
+Date,Time Measured,State,County,Station,Lat,Lon,Category,Measure,Unit,Source,Type
+7/30/2024,7:05 A.M.,VT,Caledonia,Sutton,44.6122,-72.0481,RAIN_24,0.55,Inch,COOP,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Caledonia,Lyndonville 1.1 W,44.5358,-72.0287,RAIN_24,0.7,Inch,COCORAHS,24 hour rainfall
+7/30/2024,8:10 A.M.,VT,Caledonia,Lyndonville,44.556,-72.0057,RAIN_24,0.91,Inch,CWOP,24 hour rainfall
+7/30/2024,6:39 A.M.,VT,Caledonia,Wells River 2.1 WNW,44.2302,-72.1052,RAIN_24,1.27,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Caledonia,Barnet 3.5 W,44.3002,-72.1195,RAIN_24,1.55,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:30 A.M.,VT,Caledonia,Danville 0.4 N,44.4177,-72.1394,RAIN_24,1.87,Inch,COCORAHS,24 hour rainfall
+7/30/2024,6:05 A.M.,VT,Caledonia,Danville 2.0 E,44.4122,-72.1001,RAIN_24,3.19,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Caledonia,St Johnsbury 0.2 NW,44.4205,-72.0245,RAIN_24,7.4,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:54 A.M.,VT,Caledonia,Saint Johnsbury,44.4304,-72.0132,RAIN,8.04,Inch,ASOS,Storm total rainfall
+7/30/2024,6:45 A.M.,VT,Caledonia,St. Johnsbury 0.4 N,44.4242,-72.0219,RAIN_24,8.41,Inch,COCORAHS,24 hour rainfall
+7/30/2024,5:30 A.M.,VT,Essex,Lunenburg 2.3 NNW,44.4932,-71.7045,RAIN_24,0.85,Inch,COCORAHS,24 hour rainfall
+7/30/2024,8:15 A.M.,VT,Essex,0.9 N Brunswick Springs,44.7497,-71.6317,RAIN_24,1.08,Inch,HADS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Franklin,Montgomery 4.1 ESE,44.8766,-72.5623,RAIN_24,0.62,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Orleans,Westfield 0.8 WNW,44.8916,-72.4435,RAIN_24,0.6,Inch,COCORAHS,24 hour rainfall
+7/30/2024,8:15 A.M.,VT,Orleans,Morgan Center,44.92,-71.98,RAIN,3.7,Inch,Public,Storm total rainfall
+7/30/2024,5:30 A.M.,VT,Orleans,Morgan 6.7 SE,44.8553,-71.9067,RAIN_24,5.1,Inch,COCORAHS,24 hour rainfall
+7/30/2024,8:00 A.M.,VT,Rutland,Wallingford 2.8 ESE,43.454,-72.9275,RAIN_24,0.76,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Rutland,Wallingford 2.7 SSW,43.4337,-72.9903,RAIN_24,0.84,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:56 A.M.,VT,Rutland,Rutland Airport,43.5167,-72.95,RAIN_24,2.35,Inch,AWOS,24 hour rainfall
+7/30/2024,6:00 A.M.,VT,Washington,Middlesex 7.1 NE,44.3458,-72.5608,RAIN_24,0.57,Inch,COCORAHS,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Washington,1.6 W Worcester,44.3747,-72.5822,RAIN_24,0.68,Inch,COOP,24 hour rainfall
+7/30/2024,7:00 A.M.,VT,Washington,Woodbury 3.4 NNW,44.4883,-72.4326,RAIN_24,0.69,Inch,COCORAHS,24 hour rainfall
+7/30/2024,6:30 A.M.,VT,Washington,East Montpelier,44.2723,-72.5002,RAIN_24,0.7,Inch,COCORAHS,24 hour rainfall

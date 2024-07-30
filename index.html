@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <!-- Metadata -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>July 30, 2024 VT Flood Map</title>
+
+    <!-- External -->
+    <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
+        integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://kit.fontawesome.com/c133de535f.js" crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'>
+
+    <style>
+        /* Styled to match Grove  */
+
+        body {
+            font-family: "Poppins", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+            letter-spacing: 0.08px;
+            word-spacing: 0.4px;
+            line-height: 1.5;
+            max-width: 700px;
+        }
+    </style>
+
+
+
+
+
+    <style>
+        .tooltip {
+
+            min-width: 40vw;
+            max-width:50vw;
+            white-space: normal;
+
+        }
+
+
+
+        #logo_img {
+            height: 50px;
+            filter: drop-shadow(1px 1px 2px black)
+        }
+
+        
+
+
+
+        #leaflet {
+            margin: auto;
+            font-family: Poppins;
+            z-index: 0;
+        }
+
+
+
+
+
+
+
+        .leaflet-control-attribution {
+
+            max-width: 50%;
+        }
+
+      
+       
+
+
+
+        .legend {
+    line-height: 18px;
+    color: #555;
+    background: white;
+    padding: 6px 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2)
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 1;
+}
+    </style>
+
+
+
+</head>
+
+<body>
+
+
+    <script>
+
+        async function createMap() {
+
+
+           
+            const rainfall = await d3.csv("data/july30rainfalltotals.csv")
+            const flood_warnings = await d3.json("data/vt_flood_warnings.json")
+            const warnings = flood_warnings.features
+            console.log(warnings)
+
+       
+            console.log(rainfall)
+
+
+            function color(rain_value) {
+                switch(true) {
+                    case rain_value < 2:
+                        return "#ffffb2";
+                    case rain_value < 4:
+                        return "#fecc5c"
+                    case rain_value < 6:
+                        return "#fd8d3c"
+                    default: 
+                        return "#e31a1c"
+                }
+
+            }
+
+
+
+            
+
+
+
+            const map = L.map("leaflet", {
+                maxBounds: [[45.6827279959561, -74.60342861162103], [[42.13963625461821, -70.15557545763363]]],
+                minZoom: 8,
+                maxBoundsViscosity: 1
+            }).setView(
+                [44.58668264203332, -72.04535781827701],
+                9
+            );
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+                attribution: `Data Source: <a href="https://newengland511.org/">New England 511</a>, <a href="https://www.weather.gov/btv/">NWS<a> | &copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | <i>Corey Dockser / Vermont Public </i>`,
+            }).addTo(map);
+
+
+
+            var flood_layer = L.geoJSON(warnings, {style : function(geoJsonFeature) {
+                console.log(geoJsonFeature.properties.PROD_TYPE)
+                return {
+                    
+                    fillColor: geoJsonFeature.properties["PROD_TYPE"] == "Flash Flood Warning" ? "#b1f000" : "#004c42",
+                    fillOpacity: 1,
+                    stroke: false
+                }
+            }}).addTo(map)
+            console.log(color(parseFloat(rainfall[0]["Measure"])))
+            var rain_markers = L.layerGroup();
+            rain_markers.addTo(map)
+            for (let index = 0; index < rainfall.length; ++index) {
+                var marker = L.circleMarker([rainfall[index]["Lat"], rainfall[index]["Lon"]],
+                    {
+                        radius: 6,
+                        weight: 1,
+                        fillOpacity: 1,
+                        color: "black",
+                        fillColor: color(parseFloat(rainfall[index]["Measure"]))
+                    }
+                ).bindTooltip(`
+                <b>Station Name: </b>${rainfall[index]["Station"]}<br>
+                <b>County: </b>${rainfall[index]["County"]}<br>
+                <b>Precipitation: </b>${rainfall[index]["Measure"]} inches<br>
+                <b>Time measured: </b>${rainfall[index]["Time Measured"]}<br>`, { "className": "tooltip", "opacity": 1 })
+                    .addTo(rain_markers)
+            }
+
+
+
+          
+
+            var legend = L.control({position: 'bottomleft'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [1, 3, 5, 7],
+        labels = [];
+
+        console.log(color(1))
+
+        div.innerHTML+= "<b>Rainfall</b><br>"
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + color(grades[i]) + '"></i> ' +
+            (grades[i] - 1) + (grades[i + 1] ? '"&ndash;' + (grades[i + 1] - 1) + '"<br>' : '"+');
+    }
+
+    div.innerHTML+= `<br><b>Flood Hazard</b><br>
+    <i style="background:#b1f000"></i> Flash Flood Warning<br>
+    <i style="background:#004c42"></i> Flood Warning`
+
+    return div;
+};
+
+legend.addTo(map);
+
+          
+
+
+        }
+        createMap()
+    </script>
+    <div id="leaflet" style="min-height: 500px; max-height: 800px; width: 100%"></div>
+    <div style="font-size: 14px; color:rgb(118, 118, 118)" id="description">
+        Heavy rain led to flooding in Caledonia and Orleans county, prompting the National Weather Service to issue flood warnings. The flash flood warnings have since been rescinded.</div>
+
+
+
+
+
+
+
+    <script>
+        window.onload = function () {
+            pymChild = new pym.Child({});
+            pym.Child({ polling: 500 });
+        };
+    </script>
+
+
+</body>
+
+</html>
