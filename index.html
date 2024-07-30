@@ -63,6 +63,7 @@
             margin: auto;
             font-family: Poppins;
             z-index: 0;
+            max-width:700px;
         }
 
 
@@ -111,7 +112,7 @@
 
            
             const rainfall = await d3.csv("data/july30rainfalltotals.csv")
-            const flood_warnings = await d3.json("data/vt_flood_warnings.json")
+            const flood_warnings = await d3.json("data/vt_flood_warning.json")
             const warnings = flood_warnings.features
             console.log(warnings)
 
@@ -158,7 +159,7 @@
                 return {
                     
                     fillColor: geoJsonFeature.properties["PROD_TYPE"] == "Flash Flood Warning" ? "#b1f000" : "#004c42",
-                    fillOpacity: 1,
+                    fillOpacity: .5,
                     stroke: false
                 }
             }}).addTo(map)
@@ -205,8 +206,7 @@ legend.onAdd = function (map) {
     }
 
     div.innerHTML+= `<br><b>Flood Hazard</b><br>
-    <i style="background:#b1f000"></i> Flash Flood Warning<br>
-    <i style="background:#004c42"></i> Flood Warning`
+    <i style="background:rgba(0, 76, 66, .7)"></i> Flood Warning`
 
     return div;
 };
@@ -221,7 +221,7 @@ legend.addTo(map);
     </script>
     <div id="leaflet" style="min-height: 500px; max-height: 800px; width: 100%"></div>
     <div style="font-size: 14px; color:rgb(118, 118, 118)" id="description">
-        Heavy rain led to flooding in Caledonia and Orleans county, prompting the National Weather Service to issue flood warnings. The flash flood warnings have since been rescinded.</div>
+        Heavy rain led to flooding in Caledonia and Orleans county, prompting the National Weather Service to issue flood warnings.</div>
 
 
 
